@@ -7,11 +7,16 @@ const Navbar = () => {
     <div sx={{flexGrow:1}}  >
         <AppBar position='static' color='primary'>
             <Toolbar>
-                <Typography sx={{flexGrow:1}} align='left' variant='h6'>Student App</Typography>
+                <Typography sx={{flexGrow:1}} align='left' variant='h4'>Student App</Typography>
                 <Button style={{color: 'white'}}  >
-                    link
-                    {/* <Link to='/' style={{color:'white'}}>login</Link> */}
-                    </Button>
+                     <Link to='/' style={{color:'white'}}>Add student</Link>
+                </Button>
+                <Button style={{color: 'white'}}  >
+                     <Link to='/a' style={{color:'white'}}>View std table</Link>
+                </Button>
+                <Button style={{color: 'white'}}  >
+                     <Link to='/c' style={{color:'white'}}> View std ID</Link>
+                </Button>
             </Toolbar>
         </AppBar>
     </div>
