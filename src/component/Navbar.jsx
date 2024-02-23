@@ -17,6 +17,9 @@ const Navbar = () => {
                 <Button style={{color: 'white'}}  >
                      <Link to='/c' style={{color:'white'}}> View std ID</Link>
                 </Button>
+                <Button style={{color: 'white'}}  >
+                     <Link to='/f' style={{color:'white'}}> form</Link>
+                </Button>
             </Toolbar>
         </AppBar>
     </div>

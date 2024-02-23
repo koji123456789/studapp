@@ -16,7 +16,8 @@ const View = () => {
     .then((response)=>{
     console.log(response.data)
     setUsers(response.data)
-  })})
+  })
+}, [])
   return (
     <div>
         <h1>View student table</h1>

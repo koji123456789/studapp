@@ -4,6 +4,7 @@ import Stu from './component/Stu';
 import { Route, Routes } from 'react-router-dom';
 import View from './component/View';
 import Cart from './component/Cart';
+import Frm from './component/Frm';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/' element ={<Stu/>} />
         <Route path='/a' element ={<View/>} />
         <Route path='/c' element={<Cart/>} />
+        <Route path='/f' element={<Frm/>} />
       </Routes>
     </div>
   );
