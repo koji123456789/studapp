@@ -14,7 +14,7 @@ function App() {
         <Route path='/' element ={<Stu/>} />
         <Route path='/a' element ={<View/>} />
         <Route path='/c' element={<Cart/>} />
-        <Route path='/f' element={<Frm/>} />
+        <Route path='/f' element={<Frm method='post' data={{id:"",name:"",age:"",dept:""}} action="/add"/>} />
       </Routes>
     </div>
   );

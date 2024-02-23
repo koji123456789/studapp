@@ -8,43 +8,93 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import Frm from './Frm';
 
 const View = () => {
-  var[user,setUsers]=useState([])
-  useEffect(() =>{
-    axios.get("http://localhost:4000/students")
-    .then((response)=>{
-    console.log(response.data)
-    setUsers(response.data)
-  })
-}, [])
+  var [user, setUsers] = useState([])
+  var [selected, setSelected] = useState({})
+  var [edit, setEdit] = useState(false)
+  useEffect(() => {
+    axios.get("http://localhost:4000/student")
+      .then((response) => {
+        console.log(response.data)
+        setUsers(response.data)
+      })
+  }, [])
+
+  const getData = (id) => {
+    axios.get("http://localhost:4000/student/" + id)
+      .then((response) => {
+        setSelected(response.data);
+        setEdit(true);
+      })
+      .catch(() => {
+        alert("could not edit");
+      });
+  };
+
+  const Delete = (id) => {
+    axios
+      .delete("http://localhost:4000/student/" + id)
+      .then(() => {
+        alert("Deleted a row");
+        window.location.reload();
+      })
+      .catch(() => {
+        alert("could not delete a row");
+      });
+  };
+
   return (
-    <div>
-        <h1>View student table</h1>
-        <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>name</TableCell>
-              <TableCell>age</TableCell>
-              <TableCell>dept</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {user.map((val,i) =>{
-              return(
+    <>
+      {edit ? (
+        <Frm method="put"
+          data={{
+            id: selected._id,
+            name: selected.student_name,
+            age: selected.student_age,
+            dept: selected.student_dept
+          }} />
+      ) : (
+        <div>
+          <h1>View student table</h1>
+          <TableContainer>
+            <Table>
+              <TableHead>
                 <TableRow>
-                <TableCell key={i}>{val.name}</TableCell>
-                <TableCell key={i}>{val.age}</TableCell>
-                <TableCell key={i}>{val.dept}</TableCell>
+                  <TableCell>NAME</TableCell>
+                  <TableCell>AGE</TableCell>
+                  <TableCell>DEPARTMENT</TableCell>
+                  <TableCell>
+                    <Button></Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button></Button>
+                  </TableCell>
                 </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
-  )
+              </TableHead>
+              <TableBody>
+                {user.map((val, i) => {
+                  return (
+                    <TableRow>
+                      <TableCell key={i}>{val.student_name}</TableCell>
+                      <TableCell key={i}>{val.student_age}</TableCell>
+                      <TableCell key={i}>{val.student_dept}</TableCell>
+                      <TableCell>
+                        <Button onClick={() => { getData(val._id) }}>Edit</Button>
+                      </TableCell>
+                      <TableCell>
+                        <Button onClick={() => { Delete(val._id) }}>Delete</Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
+    </>)
 }
 
 export default View
